@@ -200,3 +200,14 @@ sub get_string {
 
 1;
 
+=head1 NAME
+
+Lingua::RU::Num2Word - translates number to text in russian.
+
+=head1 SYNOPSIS
+
+    use Lingua::RU::Num2Word qw/num2rus_cardinal/;
+    print num2rus_cardinal(21, 2); # двадцать одно
+
+=cut
+
