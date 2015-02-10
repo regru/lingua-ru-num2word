@@ -1,6 +1,6 @@
 # NAME
 
-Lingua::RU::Num2Word - Numbers to words in russian (without currency)
+Lingua::RU::Num2Word - Numbers to words in russian (without currency, but with specified gender)
 
 # VERSION
 
@@ -14,7 +14,7 @@ version 0.001
 ## num2rus\_cardinal( $number, $gender )
 
 Translates number to text converter for russian, using the specified gender. Returns Unicode string.
-Main code taken from [Lingua::RUS::Number](https://metacpan.org/pod/Lingua::RUS::Number).
+Main code was taken from [Lingua::RUS::Number](https://metacpan.org/pod/Lingua::RUS::Number).
 
 $gender 0|1|2 - female, male and neutral respectively. Male by default.
 
@@ -27,9 +27,10 @@ $gender 0|1|2 - female, male and neutral respectively. Male by default.
     $bottles_on_wall --;
     print num2rus_cardinal($bottles_on_wall, 0) . " бутылка пива на стене"; # outputs "двадцать одна бутылка пива на стене"
 
-# NAME
+# ORIGINAL MODULE
 
-Lingua::RU::Num2Word - translates number to text in russian.
+    fork coding, maintenance, refactoring, extensions:  Richard C. Jelinek <info@petamem.com>
+    initial coding:  Vladislav A. Safronov, E<lt>F<vlads@yandex-team.ru>E<gt>, E<lt>F<vlad@yandex.ru>E<gt>
 
 # AUTHOR
 

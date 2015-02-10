@@ -5,7 +5,7 @@ use warnings;
 use utf8;
 use POSIX qw/floor/;
 
-# ABSTRACT: Numbers to words in russian (without currency)
+# ABSTRACT: Numbers to words in russian (without currency, but with specified gender)
 # VERSION
 # AUTHORITY
 
@@ -58,7 +58,8 @@ use vars qw(%diw %nom %genders);
         7 => { 0 => "семьсот",     1 => 1 },
         8 => { 0 => "восемьсот", 1 => 1 },
         9 => { 0 => "девятьсот", 1 => 1 }
-    }
+      }
+
 );
 
 %nom = (
@@ -98,7 +99,7 @@ use vars qw(%diw %nom %genders);
 =head2 num2rus_cardinal( $number, $gender )
 
 Translates number to text converter for russian, using the specified gender. Returns Unicode string.
-Main code taken from L<Lingua::RUS::Number>.
+Main code was taken from L<Lingua::RUS::Number>.
 
 $gender 0|1|2 - female, male and neutral respectively. Male by default.
 
@@ -116,27 +117,27 @@ $gender 0|1|2 - female, male and neutral respectively. Male by default.
 sub num2rus_cardinal {
     my ( $number, $gender ) = @_;
 
-    $gender //= 1; # male by default
+    $gender //= 1;    # male by default
 
-    return get_string( 0, 0, 0 ) unless $number; # no extra calculations for zero
+    return _get_string( 0, 0, 0 ) unless $number;    # no extra calculations for zero
 
     my ( $result, $negative );
 
     # Negative number, just add another word
     if ( $number < 0 ) {
-        $number      = abs( $number );
+        $number   = abs( $number );
         $negative = 1;
     }
 
-    $result  = "";
-    my $int_number = floor( $number ); # no doubles
+    $result = "";
+    my $int_number = floor( $number );              # no doubles
 
-    for ( my $i = 1; $i < 6 && $int_number >= 1 ; $i++ ) {
+    for ( my $i = 1 ; $i < 6 && $int_number >= 1 ; $i++ ) {
         my $tmp_number = $int_number / 1000;
         my $number_part = sprintf( "%0.3f", $tmp_number - sprintf( "%d", $tmp_number ) ) * 1000;
 
-        $int_number = floor $tmp_number;    # no doubles again
-        $result = get_string( $number_part, $i, $gender ) . " " . $result;
+        $int_number = floor $tmp_number;                                     # no doubles again
+        $result = _get_string( $number_part, $i, $gender ) . " " . $result;
     }
 
     # Clean the result
@@ -150,7 +151,7 @@ sub num2rus_cardinal {
     return $result;
 }
 
-sub get_string {
+sub _get_string {
     my $sum     = shift // return;
     my $nominal = shift;
     my $gender  = shift;
@@ -158,21 +159,23 @@ sub get_string {
 
     if ( ( !$nominal && $sum < 100 ) || ( $nominal > 0 && $nominal < 6 && $sum < 1000 ) ) {
         my $s2 = sprintf( "%d", $sum / 100 );
-        if ( $s2 > 0 ) {
+
+        if ( $s2 > 0 ) {    # hundreds
             $result .= ' ' . $diw{2}{$s2}{0};
             $nom = $diw{2}{$s2}{1};
         }
-        my $sx = sprintf( "%d", $sum - $s2 * 100 );
-        $sx-- if ( $sx - ( $sum - $s2 * 100 ) > 0 );
+
+        my $sx = floor $sum - $s2 * 100;
 
         if ( ( $sx < 20 && $sx > 0 ) || ( $sx == 0 && !$nominal ) ) {
             $result .= " " . $diw{0}{$sx}{0};
             $nom = $diw{0}{$sx}{1};
         }
         else {
-            my $s1 = sprintf( "%d", $sx / 10 );
-            $s1-- if ( ( $s1 - $sx / 10 ) > 0 );
+            my $s1 = floor $sx / 10;    # tens
+
             my $s0 = sprintf( "%d", $sum - $s2 * 100 - $s1 * 10 + 0.5 );
+
             if ( $s1 > 0 ) {
                 $result .= ' ' . $diw{1}{$s1}{0};
                 $nom = $diw{1}{$s1}{1};
@@ -200,10 +203,6 @@ sub get_string {
 
 1;
 
-=head1 NAME
-
-Lingua::RU::Num2Word - translates number to text in russian.
-
 =head1 SYNOPSIS
 
     use Lingua::RU::Num2Word qw/num2rus_cardinal/;
@@ -211,3 +210,7 @@ Lingua::RU::Num2Word - translates number to text in russian.
 
 =cut
 
+=head1 ORIGINAL MODULE
+
+    fork coding, maintenance, refactoring, extensions:  Richard C. Jelinek <info@petamem.com>
+    initial coding:  Vladislav A. Safronov, E<lt>F<vlads@yandex-team.ru>E<gt>, E<lt>F<vlad@yandex.ru>E<gt>
