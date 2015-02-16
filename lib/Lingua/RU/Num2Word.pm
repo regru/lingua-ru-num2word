@@ -12,9 +12,7 @@ use POSIX qw/floor/;
 use Exporter qw/import/;
 our @EXPORT_OK = qw(&num2rus_cardinal);
 
-use vars qw(%diw %nom %genders);
-
-%diw = (
+my %diw = (
     0 => {
         0  => { 0 => "ноль",                 1 => 1 },
         1  => { 0 => "",                         1 => 2 },
@@ -62,7 +60,7 @@ use vars qw(%diw %nom %genders);
 
 );
 
-%nom = (
+my %nom = (
     0 => { 0 => "",             1 => "",           2 => "одна",              3 => "две" },
     1 => { 0 => "",             1 => "",           2 => "один",              3 => "два" },
     2 => { 0 => "тысячи", 1 => "тысяч", 2 => "одна тысяча", 3 => "две тысячи" },
@@ -86,7 +84,7 @@ use vars qw(%diw %nom %genders);
     }
 );
 
-%genders = (
+my %genders = (
     'FEMININE' => { 0 => "", 1 => "", 2 => "одна", 3 => "две" },
     'MASCULINE' => { 0 => "", 1 => "", 2 => "один", 3 => "два" },
     'NEUTER' => { 0 => "", 1 => "", 2 => "одно", 3 => "два" },
