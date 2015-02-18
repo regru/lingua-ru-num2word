@@ -1,6 +1,5 @@
 use Test::More;
 use Test::More::UTF8;
-use lib::abs qw(../lib);
 use strict;
 use warnings;
 

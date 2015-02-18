@@ -4,7 +4,7 @@ Lingua::RU::Num2Word - Numbers to words in russian (without currency, but with s
 
 # VERSION
 
-version 0.001
+version 0.002
 
 # SYNOPSIS
 
