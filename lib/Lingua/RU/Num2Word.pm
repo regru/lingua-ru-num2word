@@ -155,7 +155,9 @@ sub num2rus_cardinal {
 }
 
 sub _get_string {
-    my $sum     = shift // return;
+    my $sum     = shift;
+    return unless defined $sum;
+
     my $nominal = shift;
     my $gender  = shift;
     my ( $result, $nom ) = ( '', -1 );

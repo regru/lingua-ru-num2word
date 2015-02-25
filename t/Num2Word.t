@@ -1,4 +1,4 @@
-use Test::More;
+use Test::More tests => 10;
 use Test::More::UTF8;
 use strict;
 use warnings;
@@ -23,4 +23,3 @@ is num2rus_cardinal(999_888), "девятьсот девяносто девят�
 
 is num2rus_cardinal(0), "ноль", "Undef becomes zero";
 
-done_testing();
