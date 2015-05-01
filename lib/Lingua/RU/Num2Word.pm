@@ -143,7 +143,8 @@ sub num2rus_cardinal {
         my $tmp_number = $int_number / 1000;
         my $number_part = sprintf( "%0.3f", $tmp_number - sprintf( "%d", $tmp_number ) ) * 1000;
 
-        $int_number = floor $tmp_number;                                     # no doubles again
+        $int_number = floor $tmp_number;
+        # no doubles again
         $result = _get_string( $number_part, $i, $gender ) . " " . $result;
     }
 
@@ -174,7 +175,7 @@ sub _get_string {
             $nom = $diw{2}{$s2}{1};
         }
 
-        my $sx = floor $sum - $s2 * 100;
+        my $sx = $sum - $s2 * 100;
 
         if ( ( $sx < 20 && $sx > 0 ) || ( $sx == 0 && !$nominal ) ) {
             $result .= " " . $diw{0}{$sx}{0};
@@ -195,6 +196,7 @@ sub _get_string {
             }
         }
     }
+
     if ( $nom >= 0 ) {
 
         if ( $nominal == 1 ) {
