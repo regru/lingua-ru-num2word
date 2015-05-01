@@ -19,7 +19,3 @@ install:
 
 script:
     - "dzil smoke"
-
-branches:
-    only:
-        - master
