@@ -4,7 +4,7 @@ Lingua::RU::Num2Word - Numbers to words in russian (without currency, but with s
 
 # VERSION
 
-version 0.01
+version 0.03
 
 # SYNOPSIS
 
@@ -17,7 +17,9 @@ Translates number to text converter for russian, using the specified gender. Ret
 Main code was taken from [Lingua::RUS::Number](https://metacpan.org/pod/Lingua::RUS::Number).
 
 $gender
+
     Can be
+
         FEMININE
         MASCULINE
         NEUTER

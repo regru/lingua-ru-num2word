@@ -1,5 +1,16 @@
 {{$NEXT}}
 
+    - Params validation was added
+
+0.02    Sat Feb 28 19:09:29 2015 +0000
+
+    - Compatibility with Perl 5.8.9
+
+0.01    Mon Feb 23 17:21:17 2015 +0000
+
     - Initial release
+
+
+
 
 

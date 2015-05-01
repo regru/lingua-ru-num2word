@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use utf8;
 use POSIX qw/floor/;
+use Carp qw/croak/;
 
 # ABSTRACT: Numbers to words in russian (without currency, but with specified gender)
 # VERSION
@@ -100,7 +101,9 @@ Translates number to text converter for russian, using the specified gender. Ret
 Main code was taken from L<Lingua::RUS::Number>.
 
 $gender
+
     Can be
+
         FEMININE
         MASCULINE
         NEUTER
@@ -120,6 +123,7 @@ sub num2rus_cardinal {
     my ( $number, $gender ) = @_;
 
     $gender ||= 'MASCULINE';    # masculine by default
+    croak "Wrong gender: $gender, should be MASCULINE|FEMININE|NEUTER" unless $gender =~ /masculine|feminine|neuter/i;
     $gender = uc $gender;
 
     return _get_string( 0, 0, 0 ) unless $number;    # no extra calculations for zero
