@@ -141,18 +141,21 @@ subtest 'counting to hundred' => sub {
 };
 
 subtest feminine => sub {
+
     my $data = {
-        'сто двадцать одна' => [ 121, 'feminine' ],
-        'две'                           => [ 2,   'feminine' ],
-        'триста сорок три'   => [ 343, 'feminine' ]
+        121 => 'сто двадцать одна',
+        2 => 'две',
+        343 => 'триста сорок три',
+        152 => 'сто пятьдесят две',
     };
 
-    for my $expected_result ( keys %$data ) {
-        my $arguments = $data->{$expected_result};
-        my $result    = num2rus_cardinal( @$arguments );
-        is $result, $expected_result, "$expected_result == $result for data (@$arguments)";
+    for my $number ( keys %$data ) {
+        my $result    = num2rus_cardinal( $number, 'feminine' );
+        my $expected_result = $data->{$number};
+        is $result, $expected_result, "$expected_result == $result for data ($number, 'feminine')";
     }
 
+    is num2rus_cardinal(1, "FEMININE" ), 'одна', 'Capitalized gender is also ok';
 };
 
 subtest neuter => sub {
@@ -173,10 +176,8 @@ subtest 'some numbers' => sub {
       "один миллион сто двадцать одна тысяча триста сорок три",
       "Translates big number ok";
 
-    # is num2rus_cardinal( 999_999_999_999_999_999 ), "", "Cannot translate very big number";
-    is num2rus_cardinal( 999_888 ),
-"девятьсот девяносто девять тысяч восемьсот восемьдесят восемь",
-      "Another big number translation ok";
+    is num2rus_cardinal( 999_999_999_999_999_999 ), "", "Cannot translate very big number";
+    is num2rus_cardinal( 999_888 ), "девятьсот девяносто девять тысяч восемьсот восемьдесят восемь", "Another big number translation ok";
 
     is num2rus_cardinal( 0 ), "ноль", "Undef becomes zero";
 };

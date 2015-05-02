@@ -122,6 +122,11 @@ $gender
 sub num2rus_cardinal {
     my ( $number, $gender ) = @_;
 
+    # The biggest number we know about
+    if ($number > 999_999_999_999_999 ) {
+        return '';
+    }
+
     $gender ||= 'MASCULINE';    # masculine by default
     croak "Wrong gender: $gender, should be MASCULINE|FEMININE|NEUTER" unless $gender =~ /masculine|feminine|neuter/i;
     $gender = uc $gender;
