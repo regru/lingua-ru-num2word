@@ -2,6 +2,8 @@
 
 Lingua::RU::Num2Word - Numbers to words in russian (without currency, but with specified gender)
 
+[![Build Status](https://travis-ci.org/imago-storm/lingua-ru-num2word.svg?branch=master)](https://travis-ci.org/imago-storm/lingua-ru-num2word)
+
 # VERSION
 
 version 0.03
